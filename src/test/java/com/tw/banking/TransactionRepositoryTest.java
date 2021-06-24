@@ -52,4 +52,19 @@ class TransactionRepositoryTest {
         assertEquals("01/01/2021", transactions.get(0).date());
         assertEquals(-10, transactions.get(0).amount());
     }
+
+    @Test
+    public void should_throw_exception_when_try_to_modify_transactions_from_allTransactions() {
+        //given
+        Clock clockMock = mock(Clock.class);
+        TransactionRepository transactionRepository = new TransactionRepository(clockMock);
+        when(clockMock.todayAsString()).thenReturn("01/01/2021");
+        transactionRepository.addWithdraw(10);
+        //when
+        List<Transaction> transactions = transactionRepository.allTransactions();
+        //then
+        assertThrows(UnsupportedOperationException.class, () -> {
+            transactions.add(mock(Transaction.class));
+        });
+    }
 }
