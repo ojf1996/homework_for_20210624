@@ -30,7 +30,7 @@ class PrinterTest {
     }
 
     @Test
-    public void should_overflow_when_print_given_total_running_amount_is_larger_than_() {
+    public void should_overflow_when_print_given_total_running_amount_is_larger_than_2147483647() {
         //given
         Console consoleMock = mock(Console.class);
         Printer printer = new Printer(consoleMock);
